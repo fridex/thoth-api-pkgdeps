@@ -17,5 +17,8 @@ RUN pushd /tmp/tmp_api_install &&\
 
 COPY hack/run_api.sh /usr/bin/
 
+# TODO: Move this to requirements once published to PyPI.
+RUN yum install -y git && pip3 install git+https://github.com/fridex/thoth-pkgdeps@master
+
 USER api
 CMD ["/usr/bin/run_api.sh"]
