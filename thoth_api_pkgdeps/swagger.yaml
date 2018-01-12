@@ -1,0 +1,18 @@
+swagger: "2.0"
+info:
+  title: API Thoth pkgdeps
+  version: "0.1"
+basePath: "/api/v1/"
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /hello:
+    get:
+      tags: [Debug]
+      operationId: thoth_api_pkgdeps.api_v1.hello
+      summary: Print a simple message.
+      responses:
+        200:
+          description: Successful response.

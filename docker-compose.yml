@@ -1,0 +1,14 @@
+version: "3"
+services:
+  thoth-api-pkgdeps:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    network_mode: bridge
+    container_name: thoth-api-pkgdeps
+    restart: always
+    ports:
+     - "34000:34000"
+    environment:
+      APP_SERVICE_PORT: 34000
+      APP_SECRET_KEY: 'secret'
