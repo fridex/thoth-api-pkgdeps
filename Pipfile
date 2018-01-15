@@ -8,8 +8,7 @@ name = "pypi"
 [packages]
 
 connexion = ">=1.0.31"
-uwsgi = "*"
-flask-script = "*"
+Flask-Script = "*"
 
 
 [dev-packages]
