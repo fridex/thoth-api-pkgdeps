@@ -1,24 +1,22 @@
-FROM registry.centos.org/centos/centos:7
-MAINTAINER Fridolin Pokorny <fridolin@redhat.com>
+FROM fedora:27
 
 ENV LANG=en_US.UTF-8
 
 RUN useradd api
 
-RUN yum install -y epel-release && \
-    yum install -y python34-devel python34-pip gcc && \
-    yum clean all
+RUN dnf install -y python3-pip && dnf clean all
 
 COPY ./ /tmp/tmp_api_install/
+# TODO: Move git+ installation to requirements once published to PyPI.
 RUN pushd /tmp/tmp_api_install &&\
   pip3 install . &&\
+  pip3 install gunicorn &&\
   popd &&\
-  rm -rf /tmp/tmp_api_install
+  rm -rf /tmp/tmp_api_install &&\
+  dnf install -y git &&\
+  pip3 install git+https://github.com/fridex/thoth-pkgdeps@master
 
 COPY hack/run_api.sh /usr/bin/
 
-# TODO: Move this to requirements once published to PyPI.
-RUN yum install -y git && pip3 install git+https://github.com/fridex/thoth-pkgdeps@master
-
-USER api
+#USER api
 CMD ["/usr/bin/run_api.sh"]

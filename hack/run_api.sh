@@ -2,5 +2,5 @@
 
 set -ex
 
-cd /usr/bin/
-exec uwsgi --http 0.0.0.0:34000 -p 1 -w entrypoint --enable-threads
+cd /usr/local/bin/
+exec gunicorn -w 4 -b 0.0.0.0:34000 entrypoint:app
