@@ -18,5 +18,5 @@ RUN pushd /tmp/tmp_api_install &&\
 
 COPY hack/run_api.sh /usr/bin/
 
-#USER api
+USER api
 CMD ["/usr/bin/run_api.sh"]
