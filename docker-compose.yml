@@ -13,4 +13,4 @@ services:
       APP_SERVICE_PORT: 34000
       APP_SECRET_KEY: 'secret'
     volumes:
-      - ./thoth_api_pkgdeps:/usr/lib/python3.6/site-packages/thoth_api_pkgdeps:ro,z
+      - ./thoth_api_pkgdeps:/usr/local/lib/python3.6/site-packages/thoth_api_pkgdeps:ro,z
