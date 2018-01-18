@@ -35,7 +35,7 @@ def init_logging():
     formatter = logging.Formatter('%(asctime)s - %(message)s')
     handler = logging.StreamHandler()
     handler.setFormatter(formatter)
-    liblog = logging.getLogger('f8a_jobs')
+    liblog = logging.getLogger('thoth_pkgdeps')
     liblog.setLevel(logging.DEBUG)
     liblog.addHandler(handler)
 
