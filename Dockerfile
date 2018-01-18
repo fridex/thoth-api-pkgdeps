@@ -1,22 +1,29 @@
 FROM fedora:27
+CMD ["/usr/bin/run_api.sh"]
+ENTRYPOINT ["/usr/bin/run_api.sh"]
+ENV \
+ LANG=en_US.UTF-8 \
+ GOPATH='/tmp/go'
 
-ENV LANG=en_US.UTF-8
-
-RUN useradd api
-
-RUN dnf install -y python3-pip && dnf clean all
+RUN \
+ useradd api &&\
+ dnf install -y python3-pip git &&\
+ dnf clean all
 
 COPY ./ /tmp/tmp_api_install/
-# TODO: Move git+ installation to requirements once published to PyPI.
-RUN pushd /tmp/tmp_api_install &&\
-  pip3 install . &&\
-  pip3 install gunicorn &&\
-  popd &&\
-  rm -rf /tmp/tmp_api_install &&\
-  dnf install -y git &&\
-  pip3 install git+https://github.com/fridex/thoth-pkgdeps@master
+# TODO: Move git installation to requirements once published to PyPI.
+RUN \
+ pushd /tmp/tmp_api_install &&\
+ pip3 install . &&\
+ pip3 install gunicorn &&\
+ git clone https://github.com/fridex/thoth-pkgdeps &&\
+ cd thoth-pkgdeps &&\
+ sh hack/install_rpm.sh &&\
+ make &&\
+ pip3 install . &&\
+ popd &&\
+ dnf clean all &&\
+ rm -rf /tmp_api_install ${GOPATH}
 
 COPY hack/run_api.sh /usr/bin/
-
 USER api
-CMD ["/usr/bin/run_api.sh"]
