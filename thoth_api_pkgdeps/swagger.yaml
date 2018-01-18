@@ -8,9 +8,9 @@ consumes:
 produces:
   - application/json
 paths:
-  /extract-build-log:
+  /extract-buildlog:
     post:
-      operationId: thoth_api_pkgdeps.api_v1.api_extract_build_log
+      operationId: thoth_api_pkgdeps.api_v1.api_extract_buildlog
       summary: Extract Docker build log and show installed packages.
       parameters:
         - name: build_log_info
@@ -24,6 +24,22 @@ paths:
           description: Successful response.
         400:
           description: On invalid request.
+  /extract-image:
+    post:
+      operationId: thoth_api_pkgdeps.api_v1.api_extract_image
+      summary: Extract packages installed in a docker image.
+      parameters:
+        - name: image
+          in: query
+          required: true
+          description: Name of image - can also specify remote registry to pull image from.
+          type: string
+      responses:
+        200:
+          description: Successful response.
+        400:
+          description: On invalid request.
+
 
 definitions:
   BuildLog:
