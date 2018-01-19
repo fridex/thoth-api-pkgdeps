@@ -40,14 +40,14 @@ def init_logging():
     liblog.addHandler(handler)
 
 
+# Expose for uWSGI.
 app = connexion.App(__name__)
 application = app.app
 init_logging()
 app.add_api(Configuration.SWAGGER_YAML_PATH)
-# Expose for uWSGI
 application.json_encoder = SafeJSONEncoder
 manager = Manager(application)
-# Needed for sesion
+# Needed for session.
 application.secret_key = Configuration.APP_SECRET_KEY
 
 
