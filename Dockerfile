@@ -1,9 +1,11 @@
 FROM fedora:27
 CMD ["/usr/bin/run_api.sh"]
 ENTRYPOINT ["/usr/bin/run_api.sh"]
+EXPOSE 34000
 ENV \
  LANG=en_US.UTF-8 \
- GOPATH='/tmp/go'
+ GOPATH='/tmp/go' \
+ APP_SERVICE_PORT=34000
 
 RUN \
  useradd api &&\
