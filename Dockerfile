@@ -25,7 +25,8 @@ RUN \
  pip3 install . &&\
  popd &&\
  dnf clean all &&\
- rm -rf /tmp_api_install ${GOPATH}
+ rm -rf /tmp_api_install ${GOPATH} &&\
+ unset GOPATH
 
 COPY hack/run_api.sh /usr/bin/
 USER api
