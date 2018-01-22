@@ -8,7 +8,8 @@ name = "pypi"
 [packages]
 
 connexion = ">=1.0.31"
-Flask-Script = "*"
+flask-script = "*"
+requests = "*"
 
 
 [dev-packages]

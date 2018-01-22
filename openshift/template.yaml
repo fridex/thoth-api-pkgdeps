@@ -14,6 +14,7 @@ objects:
     name: secret
   data:
     app-secret-key: dmFsdWUtMg0KDQo=
+    openshift-api-token: 'RVVsWldPQkNjU3RWSGd0VEhHWGc5dzJ4aHVwRkZ3eGdPWkhlN3lhbjFBTQ=='
 
 - apiVersion: v1
   kind: DeploymentConfig
@@ -34,11 +35,18 @@ objects:
         - env:
           - name: APP_SERVICE_PORT
             value: "34000"
+          - name: OPENSHIFT_API_URL
+            value: ${OPENSHIFT_API_URL}
           - name: APP_SECRET_KEY
             valueFrom:
               secretKeyRef:
                 name: secret
                 key: app-secret-key
+          - name: OPENSHIFT_API_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: openshift-api-token
           image: fridex/thoth-api-pkgdeps
           name: thoth-api-pkgdeps
           ports:
@@ -86,3 +94,9 @@ parameters:
   displayName: Thoth API pkgdeps hostname
   required: false
   name: THOTH_API_PKGDEPS_HOSTNAME
+
+- description: OpenShift API URL in base format (without path).
+  displayName: OpenShift base API URL
+  required: true
+  name: OPENSHIFT_API_URL
+  value: 'https://openshift.default.svc.cluster.local'

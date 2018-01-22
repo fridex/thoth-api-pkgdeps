@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    network_mode: bridge
+    network_mode: host
     container_name: thoth-api-pkgdeps
     restart: always
     ports:
@@ -12,5 +12,8 @@ services:
     environment:
       APP_SERVICE_PORT: 34000
       APP_SECRET_KEY: 'secret'
+      OPENSHIFT_API_URL: 'https://127.0.0.1:8443'
+      # TODO: you have to explicitly assign this to make API work properly (starting analyzes)
+      OPENSHIFT_API_TOKEN: 'fSFZ0TAoHCJmdqbU9Omb5lrtfbpl6qMhIFRSQLe3Cl8'
     volumes:
       - ./thoth_api_pkgdeps:/usr/local/lib/python3.6/site-packages/thoth_api_pkgdeps:ro,z

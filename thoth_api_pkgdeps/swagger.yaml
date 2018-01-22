@@ -40,6 +40,26 @@ paths:
         400:
           description: On invalid request.
 
+  /analyze:
+    post:
+      operationId: thoth_api_pkgdeps.api_v1.api_analyze
+      summary: Analyze the given image asynchronously.
+      parameters:
+        - name: image
+          in: query
+          required: true
+          description: Name of image - can also specify remote registry to pull image from.
+          type: string
+        - name: analyzer
+          in: query
+          required: true
+          description: Name of analyzer (OpenShift build) to be triggered
+          type: string
+      responses:
+        202:
+          description: Successful response.
+        400:
+          description: On invalid request.
 
 definitions:
   BuildLog:
