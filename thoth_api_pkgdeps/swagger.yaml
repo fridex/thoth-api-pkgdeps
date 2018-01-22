@@ -55,6 +55,10 @@ paths:
           required: true
           description: Name of analyzer (OpenShift build) to be triggered
           type: string
+          items:
+            type: string
+          enum:
+            - 'thoth-dependency-extract'
         - name: debug
           in: query
           required: false
