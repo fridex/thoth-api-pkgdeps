@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-  title: API Thoth pkgdeps
+  title: Thoth user API
   version: "0.1"
 basePath: "/api/v1/"
 consumes:
@@ -8,6 +8,22 @@ consumes:
 produces:
   - application/json
 paths:
+  /liveness:
+    get:
+      tags: [Service]
+      operationId: thoth_api_pkgdeps.api_v1.api_liveness
+      summary: Liveness probe for OpenShift.
+      responses:
+        200:
+          description: The Thoth user API service is alive.
+  /readiness:
+    get:
+      tags: [Service]
+      operationId: thoth_api_pkgdeps.api_v1.api_readiness
+      summary: Readiness probe for OpenShift.
+      responses:
+        200:
+          description: The Thoth user API service is ready.
   /extract-buildlog:
     post:
       operationId: thoth_api_pkgdeps.api_v1.api_extract_buildlog

@@ -11,6 +11,16 @@ _LOGGER = logging.getLogger(__name__)
 _LOGGER.setLevel(logging.INFO)
 
 
+def api_readiness():
+    # TODO: extend
+    return {}
+
+
+def api_liveness():
+    # TODO: extend
+    return {}
+
+
 def api_extract_buildlog(build_log_info):
     build_log = build_log_info.get('buildlog')
     if not build_log:
