@@ -1,8 +1,11 @@
 """Common library-wide utilities."""
 
+import logging
 import requests
 
 from .configuration import Configuration
+
+_LOGGER = logging.getLogger(__name__)
 
 
 def run_analyzer(image: str, analyzer: str, debug=False, timeout=None):
@@ -31,6 +34,7 @@ def run_analyzer(image: str, analyzer: str, debug=False, timeout=None):
             'value': int(timeout)
         })
 
+    _LOGGER.debug("Requesting to run analyzer %r with payload %s, OpenShift URL is %r", analyzer, payload, endpoint)
     response = requests.post(
         endpoint,
         headers={
