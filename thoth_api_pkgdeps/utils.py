@@ -23,7 +23,7 @@ def run_analyzer(image: str, analyzer: str, debug=False, timeout=None):
             },
             {
                 'name': 'THOTH_DEBUG',
-                'value': int(debug),
+                'value': str(int(debug)),
             },
         ]
     }
@@ -31,7 +31,7 @@ def run_analyzer(image: str, analyzer: str, debug=False, timeout=None):
     if timeout:
         payload['env'].append({
             'name': 'THOTH_TIMEOUT',
-            'value': int(timeout)
+            'value': str(int(timeout))
         })
 
     _LOGGER.debug("Requesting to run analyzer %r with payload %s, OpenShift URL is %r", analyzer, payload, endpoint)
