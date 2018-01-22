@@ -2,12 +2,10 @@
 
 import logging
 
-import requests
-
 from thoth_pkgdeps import extract_buildlog
 from thoth_pkgdeps import extract_image
 
-from .configuration import Configuration
+from .utils import run_analyzer
 
 _LOGGER = logging.getLogger(__name__)
 _LOGGER.setLevel(logging.INFO)
@@ -30,20 +28,10 @@ def api_extract_image(image):
         return {'error': str(exc)}, 400
 
 
-def api_analyze(image, analyzer):
-    # TODO: possibly timeout
-    # TODO: refactor this so it is more generic
-    endpoint = "{}/oapi/v1/namespaces/myproject/buildconfigs/" \
-               "{}/webhooks/secret101/generic".format(Configuration.OPENSHIFT_API_URL, analyzer)
-    payload = {'env': [{'name': 'IMAGE', 'value': image}]}
-    response = requests.post(
-        endpoint,
-        headers={
-            'Authorization': 'Bearer: {}'.format(Configuration.OPENSHIFT_API_TOKEN),
-            'Content-Type': 'application/json'
-        },
-        json=payload,
-        verify=False
-    )
-    response.raise_for_status()
+def api_analyze(image, analyzer, debug=False, timeout=None):
+    try:
+        run_analyzer(image, analyzer, debug=debug, timeout=timeout)
+    except Exception as exc:
+        # TODO: for production we will need to filter out some errors so they are not exposed to users.
+        return {'error': str(exc)}, 400
     return {}, 202

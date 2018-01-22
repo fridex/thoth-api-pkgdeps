@@ -55,6 +55,17 @@ paths:
           required: true
           description: Name of analyzer (OpenShift build) to be triggered
           type: string
+        - name: debug
+          in: query
+          required: false
+          description: Run the given analyzer in a verbose mode so developers can debug analyzer (requires access to the OpenShift console).
+          type: boolean
+          default: false
+        - name: timeout
+          in: query
+          required: false
+          description: Give a timeout to commands run inside the analyzer container.
+          type: integer
       responses:
         202:
           description: Successful response.

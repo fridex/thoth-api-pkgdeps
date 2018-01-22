@@ -13,6 +13,7 @@ services:
       APP_SERVICE_PORT: 34000
       APP_SECRET_KEY: 'secret'
       OPENSHIFT_API_URL: 'https://127.0.0.1:8443'
+      OPENSHIFT_PROJECT_NAME: 'myproject'
       # TODO: you have to explicitly assign this to make API work properly (starting analyzes)
       OPENSHIFT_API_TOKEN: 'fSFZ0TAoHCJmdqbU9Omb5lrtfbpl6qMhIFRSQLe3Cl8'
     volumes:
