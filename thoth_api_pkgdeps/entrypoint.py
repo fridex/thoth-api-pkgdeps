@@ -69,5 +69,17 @@ def api_v1():
     return jsonify({'paths': paths})
 
 
+@app.route('/readiness')
+def api_readiness():
+    # TODO: extend
+    return jsonify(None)
+
+
+@app.route('/liveness')
+def api_liveness():
+    # TODO: extend
+    return jsonify(None)
+
+
 if __name__ == '__main__':
     manager.run()
